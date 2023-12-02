@@ -12,29 +12,11 @@ fun main() {
 }
 
 fun part1(input: List<String>): Int {
-    var sum = 0
-    input.mapIndexed { index, line ->
+    return input.mapIndexedNotNull { index, line ->
         val values = parseValues(line)
 
-        if (values.none(::isTooMuch)) sum += index + 1
-    }
-    return sum
-}
-
-fun parseValues(line: String): List<List<String>> {
-    return line.substringAfter(":")
-        .replace(";", ",")
-        .split(",")
-        .map { it.trim().split(" ") }
-}
-
-fun isTooMuch(text: List<String>): Boolean {
-    return when (text.last()) {
-        "red" -> text.first().toInt() > 12
-        "green" -> text.first().toInt() > 13
-        "blue" -> text.first().toInt() > 14
-        else -> false
-    }
+        if (values.none(::isTooMuch)) index + 1 else null
+    }.sum()
 }
 
 fun part2(input: List<String>): Int {
@@ -52,3 +34,18 @@ fun part2(input: List<String>): Int {
         .sum()
 }
 
+fun parseValues(line: String): List<List<String>> {
+    return line.substringAfter(":")
+        .replace(";", ",")
+        .split(",")
+        .map { it.trim().split(" ") }
+}
+
+fun isTooMuch(text: List<String>): Boolean {
+    return when (text.last()) {
+        "red" -> text.first().toInt() > 12
+        "green" -> text.first().toInt() > 13
+        "blue" -> text.first().toInt() > 14
+        else -> false
+    }
+}
