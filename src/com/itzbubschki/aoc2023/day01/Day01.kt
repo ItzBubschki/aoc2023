@@ -1,3 +1,8 @@
+package com.itzbubschki.aoc2023.day01
+
+import println
+import readInput
+
 fun main() {
     val input = readInput("Day01")
     part1(input).println()
