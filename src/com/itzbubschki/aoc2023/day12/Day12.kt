@@ -7,89 +7,49 @@ val input =
     readInput("Day12")
 //    readInput("Day12_test")
 
-val knownSolutionsMap = mutableMapOf<String, Int>()
+private val knownSolutions = hashMapOf<Pair<String, List<Int>>, Long>()
 
 fun main() {
-//    part1().println()
+    part1().println()
     part2().println()
 }
 
-fun part1(): Int {
-    return input.sumOf { recursivelyCheckRemainingInput(it) }
+fun part1(): Long {
+    return input.sumOf {
+        it.split(" ")
+            .let { split -> recursivelyCheckRemainingInput(split.first(), split.last().split(",").map(String::toInt)) }
+    }
 }
 
-fun recursivelyCheckRemainingInput(line: String, startAfter: Int = 0): Int {
-    var options = 0
-    for ((index, ch) in line.drop(startAfter).withIndex()) {
-        when (ch) {
-            ' ' -> break
-            '?' -> {
-                val firstOption = line.replaceAt(index + startAfter, '.')
-                val secondOption = line.replaceAt(index + startAfter, '#')
-                options += getSolutionsForOption(firstOption, index, startAfter)
-                options += getSolutionsForOption(secondOption, index, startAfter)
-                break
-            }
-
-            else -> {}
+fun part2(): Long {
+    return input.sumOf {
+        it.split(" ").let { split ->
+            recursivelyCheckRemainingInput(
+                "${split.first()}?".repeat(5).dropLast(1),
+                "${split.last()},".repeat(5).dropLast(1).split(",").map(String::toInt)
+            )
         }
     }
-    if (line.contains('?')) {
-        return options
-    } else if (checkIfLineIsValid(line)) {
-        return options + 1
+}
+
+fun recursivelyCheckRemainingInput(config: String, groups: List<Int>): Long {
+    //no more groups but also no more springs left
+    if (groups.isEmpty()) return if ("#" in config) 0 else 1
+    //reached the end but there are groups remaining
+    if (config.isEmpty()) return 0
+
+    return knownSolutions.getOrPut(Pair(config, groups)) {
+        var result = 0L
+        if (config.first() in ".?")
+            result += recursivelyCheckRemainingInput(config.drop(1), groups)
+        if (config.first() in "#?" &&
+            //are there even enough letters left to satisfy the first group length
+            groups.first() <= config.length &&
+            //are there enough springs or unknowns to fulfill the first group
+            "." !in config.take(groups.first()) &&
+            //are there only springs/unknowns left OR is the first token after the current group not a certain spring
+            (groups.first() == config.length || config[groups.first()] != '#'))
+            result += recursivelyCheckRemainingInput(config.drop(groups.first() + 1), groups.drop(1))
+        result
     }
-    return 0
-}
-
-private fun getSolutionsForOption(newLine: String, index: Int, startAfter: Int): Int {
-    if (knownSolutionsMap[newLine] != null) {
-        return knownSolutionsMap[newLine]!!
-    } else if (!checkIfLineIsStillPossible(newLine)) {
-        knownSolutionsMap[newLine] = 0
-    } else {
-        val solutions = recursivelyCheckRemainingInput(newLine, index + startAfter)
-        knownSolutionsMap[newLine] = solutions
-        return solutions
-    }
-    return 0
-}
-
-fun checkIfLineIsValid(line: String): Boolean {
-    val pattern = Regex("#+")
-    val matches = pattern.findAll(line)
-    val groups = matches.map { it.value }.toList()
-    val controlSizes = line.substringAfter(" ").split(",").map { it.toInt() }
-    return groups.size == controlSizes.size && groups.withIndex()
-        .all { (index, group) -> group.length == controlSizes[index] }
-}
-
-fun checkIfLineIsStillPossible(line: String): Boolean {
-    val split = line.split(" ")
-    val controlSizes = split.last().split(",").map { it.toInt() }
-    val toControl = split.first().substringBefore("?").substringBeforeLast(".", "")
-    val pattern = Regex("#+")
-    val matches = pattern.findAll(toControl)
-    val groups = matches.map { it.value }.toList()
-    return groups.size <= controlSizes.size && groups.withIndex().all { (index, group) -> group.length == controlSizes[index] }
-}
-
-fun part2(): Int {
-    val newInput = input.map {
-        val split = it.split(" ")
-        val newBeginning = mutableListOf<String>()
-        val newEnd = mutableListOf<String>()
-        repeat(5) {
-            newBeginning.add(split.first())
-            newEnd.add(split.last())
-        }
-        newBeginning.joinToString("?") + " " + newEnd.joinToString(",")
-    }
-    return newInput.sumOf { recursivelyCheckRemainingInput(it) }
-}
-
-fun String.replaceAt(index: Int, replacement: Char): String {
-    val charArray: CharArray = this.toCharArray()
-    charArray[index] = replacement
-    return String(charArray)
 }
