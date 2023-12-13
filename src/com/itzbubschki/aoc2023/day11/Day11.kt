@@ -2,6 +2,7 @@ package com.itzbubschki.aoc2023.day11
 
 import println
 import readInput
+import rotateMatrix
 import kotlin.math.*
 
 val input =
@@ -13,11 +14,6 @@ typealias Point = Pair<Int, Int>
 fun main() {
     calculateSizeWithExpansion(1).println()
     calculateSizeWithExpansion(1_000_000L-1).println()
-}
-
-fun rotateMatrix(matrix: List<String>): List<String> {
-    val rotated = matrix.map { it.reversed() }.toMutableList()
-    return rotated[0].indices.map { i -> rotated.map { it[i] } }.map { it.joinToString("") }
 }
 
 fun getEmptyLines(): List<Int> =
