@@ -6,7 +6,7 @@ import getDifferenceCount
 import mirroredIndex
 import println
 import readInput
-import rotateMatrix
+import rotateMatrixCounterCw
 
 val input =
 //    readInput("Day13_test")
@@ -19,10 +19,10 @@ fun main() {
 }
 
 fun part1(chunks: List<List<String>>) =
-    chunks.sumOf { findMirrorInRows(rotateMatrix(it), true) ?: (100 * findMirrorInRows(it)!!) }
+    chunks.sumOf { findMirrorInRows(rotateMatrixCounterCw(it), true) ?: (100 * findMirrorInRows(it)!!) }
 
 fun part2(chunks: List<List<String>>) =
-    chunks.sumOf { findMirrorsWithSmudges(rotateMatrix(it), true) ?: (100 * findMirrorsWithSmudges(it)!!) }
+    chunks.sumOf { findMirrorsWithSmudges(rotateMatrixCounterCw(it), true) ?: (100 * findMirrorsWithSmudges(it)!!) }
 
 fun findMirrorInRows(matrix: List<String>, rotated: Boolean = false): Int? {
     return matrix.withIndex().windowed(2).indexOfFirst { (line, nextLine) ->

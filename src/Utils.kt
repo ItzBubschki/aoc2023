@@ -38,9 +38,14 @@ fun Long.lcm(other: Long) =
         (this * other).absoluteValue / this.gcd(other)
     }
 
-fun rotateMatrix(matrix: List<String>): List<String> {
+fun rotateMatrixCounterCw(matrix: List<String>): List<String> {
     val rotated = matrix.map { it.reversed() }.toMutableList()
     return rotated[0].indices.map { i -> rotated.map { it[i] } }.map { it.joinToString("") }
+}
+
+fun rotateMatrixCw(matrix: List<String>): List<String> {
+    val transposed = matrix[0].indices.map { i -> matrix.map { it[i] } }
+    return transposed.map { it.joinToString("").reversed() }
 }
 
 fun chunkThroughEmptyLines(input: List<String>): List<List<String>> {
@@ -58,4 +63,13 @@ fun Int.calculateColumnIndex(rows: Int, rotated: Boolean = false): Int {
 fun String.getDifferenceCount(other: String): Int {
     require(this.length == other.length) { "Input strings must have the same length" }
     return this.zip(other).count { it.first != it.second }
+}
+
+fun String.replaceAt(index: Int, replacement: Char): String {
+    if (index in indices) {
+        val stringBuilder = StringBuilder(this)
+        stringBuilder.setCharAt(index, replacement)
+        return stringBuilder.toString()
+    }
+    return this
 }

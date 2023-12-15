@@ -2,7 +2,7 @@ package com.itzbubschki.aoc2023.day11
 
 import println
 import readInput
-import rotateMatrix
+import rotateMatrixCounterCw
 import kotlin.math.*
 
 val input =
@@ -20,7 +20,7 @@ fun getEmptyLines(): List<Int> =
     input.mapIndexedNotNull { index, s -> if (!s.contains("#")) index else null }
 
 fun getEmptyRows(): List<Int> =
-    rotateMatrix(input).mapIndexedNotNull { index, s -> if (!s.contains("#")) index else null }
+    rotateMatrixCounterCw(input).mapIndexedNotNull { index, s -> if (!s.contains("#")) index else null }
         .map { input.first().length - it - 1 }.reversed()
 
 fun createPoints(): List<Point> {
