@@ -73,3 +73,45 @@ fun String.replaceAt(index: Int, replacement: Char): String {
     }
     return this
 }
+
+enum class Direction {
+    EAST,
+    WEST,
+    NORTH,
+    SOUTH
+}
+
+operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>): Pair<Int, Int> {
+    return Pair(this.first + other.first, this.second + other.second)
+}
+
+val DirectionToPositionMap = mapOf(
+    Direction.NORTH to (0 to -1),
+    Direction.EAST to (1 to 0),
+    Direction.SOUTH to (0 to 1),
+    Direction.WEST to (-1 to 0)
+)
+
+fun <A> List<List<A>>.get2d(x: Int, y: Int): A {
+    return this[y][x]
+}
+
+fun <A> List<List<A>>.get2dOptional(x: Int, y: Int): A? {
+    return this.getOrNull(y)?.getOrNull(x)
+}
+
+fun <A> List<List<A>>.get2d(position: Pair<Int, Int>): A {
+    return this[position.second][position.first]
+}
+
+fun <A> List<List<A>>.get2dOptional(position: Pair<Int, Int>): A? {
+    return this.getOrNull(position.second)?.getOrNull(position.first)
+}
+
+fun <T> List<String>.inputToClass(transform: (Int, Int, Char) -> T): List<List<T>> {
+    return this.mapIndexed { y, line ->
+        line.mapIndexed { x, c ->
+            transform(x, y, c)
+        }
+    }
+}

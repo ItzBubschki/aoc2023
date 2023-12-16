@@ -1,19 +1,15 @@
 package com.itzbubschki.aoc2023.day10
 
+import Direction
 import println
 import readInput
 import kotlin.math.abs
 
-enum class Opening {
-    EAST,
-    WEST,
-    NORTH,
-    SOUTH
-}
+
 
 data class Pipe(
     val position: Pair<Int, Int>,
-    val openings: List<Opening>,
+    val openings: List<Direction>,
     val startTile: Boolean,
     var distance: Int = 0
 )
@@ -28,7 +24,7 @@ fun main() {
     }
     val startTile = pipes.flatten().first { it.startTile }
     val tilesInLoop = mutableListOf<Pipe>()
-    for (startDirection in Opening.entries) {
+    for (startDirection in Direction.entries) {
         tilesInLoop.clear()
         tilesInLoop.add(startTile)
         var current = getNextPipe(startTile, startDirection, pipes) ?: continue
@@ -68,38 +64,38 @@ fun part2(tilesInLoop: List<Pipe>, pipes: List<List<Pipe>>): Int {
     }
 }
 
-fun getOpeningsForChar(char: Char): List<Opening> {
+fun getOpeningsForChar(char: Char): List<Direction> {
     return when (char) {
-        '|' -> listOf(Opening.NORTH, Opening.SOUTH)
-        '-' -> listOf(Opening.EAST, Opening.WEST)
-        'L' -> listOf(Opening.NORTH, Opening.WEST)
-        'J' -> listOf(Opening.NORTH, Opening.EAST)
-        '7' -> listOf(Opening.EAST, Opening.SOUTH)
-        'F' -> listOf(Opening.WEST, Opening.SOUTH)
+        '|' -> listOf(Direction.NORTH, Direction.SOUTH)
+        '-' -> listOf(Direction.EAST, Direction.WEST)
+        'L' -> listOf(Direction.NORTH, Direction.WEST)
+        'J' -> listOf(Direction.NORTH, Direction.EAST)
+        '7' -> listOf(Direction.EAST, Direction.SOUTH)
+        'F' -> listOf(Direction.WEST, Direction.SOUTH)
         else -> emptyList()
     }
 }
 
-fun getNextPipe(start: Pipe, direction: Opening, allPipes: List<List<Pipe>>): Pipe? {
+fun getNextPipe(start: Pipe, direction: Direction, allPipes: List<List<Pipe>>): Pipe? {
     val (x, y) = start.position
     return when (direction) {
-        Opening.EAST -> allPipes.flatten().firstOrNull { it.position.first == x - 1 && it.position.second == y }
-        Opening.WEST -> allPipes.flatten().firstOrNull { it.position.first == x + 1 && it.position.second == y }
-        Opening.NORTH -> allPipes.flatten().firstOrNull { it.position.first == x && it.position.second == y - 1 }
-        Opening.SOUTH -> allPipes.flatten().firstOrNull { it.position.first == x && it.position.second == y + 1 }
+        Direction.EAST -> allPipes.flatten().firstOrNull { it.position.first == x - 1 && it.position.second == y }
+        Direction.WEST -> allPipes.flatten().firstOrNull { it.position.first == x + 1 && it.position.second == y }
+        Direction.NORTH -> allPipes.flatten().firstOrNull { it.position.first == x && it.position.second == y - 1 }
+        Direction.SOUTH -> allPipes.flatten().firstOrNull { it.position.first == x && it.position.second == y + 1 }
     }
 }
 
-fun getNextDirection(start: Opening, openings: List<Opening>): Opening {
+fun getNextDirection(start: Direction, openings: List<Direction>): Direction {
     val banned = getOppositeDirection(start)
     return openings.first { it != banned }
 }
 
-private fun getOppositeDirection(start: Opening): Opening {
+private fun getOppositeDirection(start: Direction): Direction {
     return when (start) {
-        Opening.EAST -> Opening.WEST
-        Opening.WEST -> Opening.EAST
-        Opening.NORTH -> Opening.SOUTH
-        Opening.SOUTH -> Opening.NORTH
+        Direction.EAST -> Direction.WEST
+        Direction.WEST -> Direction.EAST
+        Direction.NORTH -> Direction.SOUTH
+        Direction.SOUTH -> Direction.NORTH
     }
 }
