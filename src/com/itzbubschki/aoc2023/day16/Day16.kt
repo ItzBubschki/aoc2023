@@ -1,13 +1,13 @@
 package com.itzbubschki.aoc2023.day16
 
-import Direction
-import DirectionToPositionMap
-import get2d
-import get2dOptional
-import inputToClass
-import plus
-import println
-import readInput
+import com.itzbubschki.aoc2023.utils.Direction
+import com.itzbubschki.aoc2023.utils.DirectionToPositionMap
+import com.itzbubschki.aoc2023.utils.get2d
+import com.itzbubschki.aoc2023.utils.get2dOptional
+import com.itzbubschki.aoc2023.utils.inputToClass
+import com.itzbubschki.aoc2023.utils.plus
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
 
 data class Tile(
     val position: Pair<Int, Int>,

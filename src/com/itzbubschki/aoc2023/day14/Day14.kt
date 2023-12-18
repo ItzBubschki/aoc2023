@@ -1,9 +1,9 @@
 package com.itzbubschki.aoc2023.day14
 
-import println
-import readInput
-import replaceAt
-import rotateMatrixCw
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
+import com.itzbubschki.aoc2023.utils.replaceAt
+import com.itzbubschki.aoc2023.utils.rotateMatrixCw
 
 
 private val knownSolutions = hashMapOf<String, String>()

@@ -1,7 +1,7 @@
 package com.itzbubschki.aoc2023.day06
 
-import println
-import readInput
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
 
 val input =
     readInput("Day06")

@@ -1,12 +1,12 @@
 package com.itzbubschki.aoc2023.day13
 
-import calculateColumnIndex
-import chunkThroughEmptyLines
-import getDifferenceCount
-import mirroredIndex
-import println
-import readInput
-import rotateMatrixCounterCw
+import com.itzbubschki.aoc2023.utils.calculateColumnIndex
+import com.itzbubschki.aoc2023.utils.chunkThroughEmptyLines
+import com.itzbubschki.aoc2023.utils.getDifferenceCount
+import com.itzbubschki.aoc2023.utils.mirroredIndex
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
+import com.itzbubschki.aoc2023.utils.rotateMatrixCounterCw
 
 val input =
 //    readInput("Day13_test")

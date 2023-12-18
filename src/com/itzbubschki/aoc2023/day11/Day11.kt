@@ -1,15 +1,14 @@
 package com.itzbubschki.aoc2023.day11
 
-import println
-import readInput
-import rotateMatrixCounterCw
+import com.itzbubschki.aoc2023.utils.calculateDistance
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
+import com.itzbubschki.aoc2023.utils.rotateMatrixCounterCw
 import kotlin.math.*
 
 val input =
     readInput("Day11")
 //    readInput("Day11_test")
-
-typealias Point = Pair<Int, Int>
 
 fun main() {
     calculateSizeWithExpansion(1).println()
@@ -23,19 +22,19 @@ fun getEmptyRows(): List<Int> =
     rotateMatrixCounterCw(input).mapIndexedNotNull { index, s -> if (!s.contains("#")) index else null }
         .map { input.first().length - it - 1 }.reversed()
 
-fun createPoints(): List<Point> {
-    val points = mutableListOf<Point>()
+fun createPoints(): List<Pair<Int, Int>> {
+    val points = mutableListOf<Pair<Int, Int>>()
     for ((y, line) in input.withIndex()) {
         for ((x, field) in line.withIndex()) {
             if (field == '#') {
-                points.add(Point(x, y))
+                points.add(x to y)
             }
         }
     }
     return points
 }
 
-fun calculateTotalDistance(points: List<Point>, emptyRows: List<Int>, emptyLines: List<Int>, expansion: Long): Long {
+fun calculateTotalDistance(points: List<Pair<Int, Int>>, emptyRows: List<Int>, emptyLines: List<Int>, expansion: Long): Long {
     var totalDistance = 0L
     for (i in points.indices) {
         for (j in i + 1 until points.size) {
@@ -55,8 +54,4 @@ fun calculateSizeWithExpansion(expansion: Long): Long {
     val emptyRows = getEmptyRows()
     val points = createPoints()
     return calculateTotalDistance(points, emptyRows, emptyLines, expansion)
-}
-
-fun Point.calculateDistance(other: Point): Int {
-    return abs(this.first - other.first) + abs(this.second - other.second)
 }

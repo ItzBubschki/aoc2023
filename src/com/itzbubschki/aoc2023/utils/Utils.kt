@@ -1,7 +1,10 @@
+package com.itzbubschki.aoc2023.utils
+
 import java.math.BigInteger
 import java.security.MessageDigest
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
+import kotlin.math.abs
 import kotlin.math.absoluteValue
 
 /**
@@ -20,6 +23,12 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  * The cleaner shorthand for printing output.
  */
 fun Any?.println() = println(this)
+
+typealias Point = Pair<Int, Int>
+
+operator fun <E> List<List<E>>.contains(point: Point): Boolean =
+    this.isNotEmpty() && point.second in this.indices && point.first in this.first().indices
+
 
 tailrec fun Long.gcd(other: Long): Long {
     return if (this == 0L || other == 0L) {
@@ -74,23 +83,9 @@ fun String.replaceAt(index: Int, replacement: Char): String {
     return this
 }
 
-enum class Direction {
-    EAST,
-    WEST,
-    NORTH,
-    SOUTH
-}
-
-operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>): Pair<Int, Int> {
+operator fun Point.plus(other: Point): Point {
     return Pair(this.first + other.first, this.second + other.second)
 }
-
-val DirectionToPositionMap = mapOf(
-    Direction.NORTH to (0 to -1),
-    Direction.EAST to (1 to 0),
-    Direction.SOUTH to (0 to 1),
-    Direction.WEST to (-1 to 0)
-)
 
 fun <A> List<List<A>>.get2d(x: Int, y: Int): A {
     return this[y][x]
@@ -100,11 +95,11 @@ fun <A> List<List<A>>.get2dOptional(x: Int, y: Int): A? {
     return this.getOrNull(y)?.getOrNull(x)
 }
 
-fun <A> List<List<A>>.get2d(position: Pair<Int, Int>): A {
+fun <A> List<List<A>>.get2d(position: Point): A {
     return this[position.second][position.first]
 }
 
-fun <A> List<List<A>>.get2dOptional(position: Pair<Int, Int>): A? {
+fun <A> List<List<A>>.get2dOptional(position: Point): A? {
     return this.getOrNull(position.second)?.getOrNull(position.first)
 }
 
@@ -114,4 +109,8 @@ fun <T> List<String>.inputToClass(transform: (Int, Int, Char) -> T): List<List<T
             transform(x, y, c)
         }
     }
+}
+
+fun Point.calculateDistance(other: Point): Int {
+    return abs(this.first - other.first) + abs(this.second - other.second)
 }

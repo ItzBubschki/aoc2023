@@ -1,7 +1,7 @@
 package com.itzbubschki.aoc2023.day04
 
-import println
-import readInput
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
 import kotlin.math.pow
 
 val input =

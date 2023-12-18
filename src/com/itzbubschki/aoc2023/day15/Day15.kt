@@ -1,7 +1,7 @@
 package com.itzbubschki.aoc2023.day15
 
-import println
-import readInput
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
 import java.util.LinkedList
 
 data class Lens(val label: String, var focalLength: Int)

@@ -1,7 +1,7 @@
 package com.itzbubschki.aoc2023.day05
 
-import println
-import readInput
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
 
 data class Range(val sourceStart: Long, val destinationStart: Long, val steps: Long)
 

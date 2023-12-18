@@ -1,7 +1,7 @@
 package com.itzbubschki.aoc2023.day02
 
-import println
-import readInput
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
 
 fun main() {
     val input =

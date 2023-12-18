@@ -1,7 +1,7 @@
 package com.itzbubschki.aoc2023.day03
 
-import println
-import readInput
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
 
 val offsets = listOf(-1, 0, 1)
 

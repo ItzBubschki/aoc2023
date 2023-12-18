@@ -1,8 +1,8 @@
 package com.itzbubschki.aoc2023.day08
 
-import lcm
-import println
-import readInput
+import com.itzbubschki.aoc2023.utils.lcm
+import com.itzbubschki.aoc2023.utils.println
+import com.itzbubschki.aoc2023.utils.readInput
 
 val input =
     readInput("Day08")
