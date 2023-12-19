@@ -114,3 +114,7 @@ fun <T> List<String>.inputToClass(transform: (Int, Int, Char) -> T): List<List<T
 fun Point.calculateDistance(other: Point): Int {
     return abs(this.first - other.first) + abs(this.second - other.second)
 }
+
+fun <A, B> Map<A, B>.getNotNull(key: A): B {
+    return this[key]!!
+}
