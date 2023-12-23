@@ -118,3 +118,20 @@ fun Point.calculateDistance(other: Point): Int {
 fun <A, B> Map<A, B>.getNotNull(key: A): B {
     return this[key]!!
 }
+
+fun Point.addWithWrap(other: Point, size: Pair<Int, Int>): Point {
+    val unwrapped = this + other
+    return Math.floorMod(unwrapped.first, size.first) to Math.floorMod(unwrapped.second, size.second)
+}
+
+tailrec fun recursiveDiff(list: List<Long>, acc: MutableList<List<Long>> = mutableListOf()): List<List<Long>> {
+    acc.add(list)
+    val nextList = list.zipWithNext { a, b -> b - a }
+    return if (nextList.all { it == 0L }) acc else recursiveDiff(nextList, acc)
+}
+
+fun Point.neighbours(): List<Point> {
+    return Direction.entries.map {
+        DirectionToPositionMap.getNotNull(it) + this
+    }
+}

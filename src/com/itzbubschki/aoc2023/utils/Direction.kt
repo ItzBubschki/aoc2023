@@ -7,23 +7,23 @@ val DirectionToPositionMap = mapOf(
     Direction.WEST to (-1 to 0)
 )
 
-enum class Direction(val char: Char) {
-    EAST('R') {
+enum class Direction(val char: Char, val sign: Char) {
+    EAST('R', '>') {
         override val left get() = NORTH
         override val right get() = SOUTH
         override val opposite get() = WEST
     },
-    SOUTH('D') {
+    SOUTH('D', 'v') {
         override val left get() = EAST
         override val right get() = WEST
         override val opposite get() = NORTH
     },
-    WEST('L') {
+    WEST('L', '<') {
         override val left get() = SOUTH
         override val right get() = NORTH
         override val opposite get() = EAST
     },
-    NORTH('U') {
+    NORTH('U', '^') {
         override val left get() = WEST
         override val right get() = EAST
         override val opposite get() = SOUTH
