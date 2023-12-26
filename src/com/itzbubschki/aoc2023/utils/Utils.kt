@@ -135,3 +135,9 @@ fun Point.neighbours(): List<Point> {
         DirectionToPositionMap.getNotNull(it) + this
     }
 }
+
+fun Iterable<Int>.product(): Int =
+    reduce(Int::times)
+
+fun Iterable<Long>.product(): Long =
+    reduce(Long::times)
