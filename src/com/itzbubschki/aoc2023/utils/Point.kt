@@ -8,7 +8,17 @@ operator fun Point.plus(other: Point): Point {
     return Pair(this.first + other.first, this.second + other.second)
 }
 
-fun <A> List<List<A>>.get2d(position: Point): A {
+operator fun Point.rem(bounds: Point): Point {
+    val x = Math.floorMod(first, bounds.first)
+    val y = Math.floorMod(second, bounds.second)
+    return Point(x, y)
+}
+
+operator fun <T> List<List<T>>.get(position: Point): T {
+    return this[position.second][position.first]
+}
+
+operator fun List<String>.get(position: Point): Char {
     return this[position.second][position.first]
 }
 
@@ -31,5 +41,5 @@ fun Point.neighbours(): List<Point> {
     }
 }
 
-operator fun <E> List<List<E>>.contains(point: Point): Boolean =
+operator fun <E> Collection<Collection<E>>.contains(point: Point): Boolean =
     this.isNotEmpty() && point.second in this.indices && point.first in this.first().indices

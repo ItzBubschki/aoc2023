@@ -44,7 +44,7 @@ fun part1(matrix: List<List<Int>>): Int {
         start,
         { (p, _) -> p == end },
         { it.neighbours().filterNot { p -> matrix.get2dOptional(p.point) == null } },
-        { _, (point) -> matrix.get2d(point) })
+        { _, (point) -> matrix[point] })
     return path.getScore()
 }
 
@@ -55,7 +55,7 @@ fun part2(matrix: List<List<Int>>): Int {
         start,
         { (p, _, line) -> p == end && line >= 4 },
         { it.ultraNeighbours().filterNot { p -> matrix.get2dOptional(p.point) == null } },
-        { _, (point) -> matrix.get2d(point) }
+        { _, (point) -> matrix[point] }
     )
     return path.getScore()
 }

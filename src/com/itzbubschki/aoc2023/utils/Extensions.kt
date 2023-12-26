@@ -55,14 +55,6 @@ fun String.replaceAt(index: Int, replacement: Char): String {
     return this
 }
 
-fun <A> List<List<A>>.get2d(x: Int, y: Int): A {
-    return this[y][x]
-}
-
-fun <A> List<List<A>>.get2dOptional(x: Int, y: Int): A? {
-    return this.getOrNull(y)?.getOrNull(x)
-}
-
 fun <A, B> Map<A, B>.getNotNull(key: A): B {
     return this[key]!!
 }

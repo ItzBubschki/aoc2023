@@ -2,7 +2,7 @@ package com.itzbubschki.aoc2023.day16
 
 import com.itzbubschki.aoc2023.utils.Direction
 import com.itzbubschki.aoc2023.utils.DirectionToPositionMap
-import com.itzbubschki.aoc2023.utils.get2d
+import com.itzbubschki.aoc2023.utils.get
 import com.itzbubschki.aoc2023.utils.get2dOptional
 import com.itzbubschki.aoc2023.utils.inputToClass
 import com.itzbubschki.aoc2023.utils.plus
@@ -51,7 +51,7 @@ fun moveBeams(map: List<List<Tile>>, startingBeam: Beam): Int {
         it.previousDirections.clear()
     }
     val beams = mutableListOf(startingBeam)
-    map.get2d(startingBeam.position).energized = true
+    map[startingBeam.position].energized = true
     while (beams.any { it.canMove }) {
         beams.filter { it.canMove }.forEach {
             val tile = map.get2dOptional(it.position)

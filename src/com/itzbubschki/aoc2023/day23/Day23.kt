@@ -51,17 +51,17 @@ fun populateIntersection(
 fun nextPointsA(point: Point, map: List<List<Char>>): List<Point> {
     return if (point.second == -1) {
         listOf(point + Point(0, 1))
-    } else when (map.get2d(point)) {
+    } else when (map[point]) {
         '.' -> point.neighbours()
         '<' -> listOf(Point(point.first - 1, point.second))
         '>' -> listOf(Point(point.first + 1, point.second))
         '^' -> listOf(Point(point.first, point.second - 1))
         'v' -> listOf(Point(point.first, point.second + 1))
         else -> {
-            println("Unexpected path char ${map.get2d(point)}")
+            println("Unexpected path char ${map[point]}")
             emptyList()
         }
-    }.filter { it in map && map.get2d(it) != '#' }
+    }.filter { it in map && map[it] != '#' }
 }
 
 fun nextPointsB(point: Point, map: List<List<Char>>): List<Point> {
@@ -69,7 +69,7 @@ fun nextPointsB(point: Point, map: List<List<Char>>): List<Point> {
         listOf(point + Point(0, 1))
     } else {
         point.neighbours()
-    }.filter { it in map && map.get2d(it) != '#' }
+    }.filter { it in map && map[it] != '#' }
 }
 
 fun searchUntilIntersection(
